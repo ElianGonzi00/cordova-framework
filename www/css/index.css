@@ -1,0 +1,238 @@
+/**
+    Licensed to the Apache Software Foundation (ASF) under one
+    or more contributor license agreements.  See the NOTICE file
+    distributed with this work for additional information
+    regarding copyright ownership.  The ASF licenses this file
+    to you under the Apache License, Version 2.0 (the
+    "License"); you may not use this file except in compliance
+    with the License.  You may obtain a copy of the License at
+
+        http://www.apache.org/licenses/LICENSE-2.0
+
+    Unless required by applicable law or agreed to in writing,
+    software distributed under the License is distributed on an
+    "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
+    KIND, either express or implied.  See the License for the
+    specific language governing permissions and limitations
+    under the License.
+*/
+
+:root {
+    
+    --color-paper:          oklch(97% 0.006 255); 
+    --color-surface:        oklch(100% 0 0);      
+    --color-ink:            oklch(28% 0.03 260);  
+    --color-muted:          oklch(52% 0.03 260);  
+    --color-border:         oklch(90% 0.012 260); 
+    --color-accent:         oklch(55% 0.17 255);  
+    --color-accent-strong:  oklch(48% 0.17 255);  
+    --color-on-accent:      oklch(99% 0 0);       
+    --color-focus:          oklch(70% 0.15 255);  
+
+    
+    --space-xs: 0.5rem;  
+    --space-sm: 0.75rem; 
+    --space-md: 1rem;    
+    --space-lg: 1.5rem;  
+    --space-xl: 2rem;    
+
+    --radius-md: 12px;
+    --radius-lg: 18px;
+
+
+    --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto,
+                 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+    --text-base: 1rem;
+    --text-sm:   0.875rem;
+    --text-h1:   clamp(1.4rem, 5.5vw, 2rem);
+
+    --shadow-card:  0 1px 2px oklch(28% 0.03 260 / 0.06),
+                    0 8px 24px oklch(28% 0.03 260 / 0.08);
+    --shadow-lift:  0 4px 14px oklch(55% 0.17 255 / 0.35);
+
+    --dur-fast: 120ms;
+    --dur-base: 220ms;
+    --ease-out:    cubic-bezier(0.2, 0.8, 0.2, 1);
+    --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@media (prefers-color-scheme: dark) {
+    :root {
+        --color-paper:          oklch(21% 0.02 260);
+        --color-surface:        oklch(26% 0.02 260);
+        --color-ink:            oklch(95% 0.01 260);
+        --color-muted:          oklch(70% 0.02 260);
+        --color-border:         oklch(34% 0.02 260);
+        --color-accent:         oklch(65% 0.16 255);
+        --color-accent-strong:  oklch(72% 0.16 255);
+        --color-on-accent:      oklch(20% 0.02 260);
+        --color-focus:          oklch(75% 0.14 255);
+        --shadow-card:  0 1px 2px oklch(0% 0 0 / 0.30),
+                        0 8px 24px oklch(0% 0 0 / 0.40);
+    }
+}
+
+* {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+    box-sizing: border-box;
+}
+
+html,
+body {
+    overflow-x: clip; 
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    padding: var(--space-lg) var(--space-md); 
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-lg);
+
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-size: var(--text-base);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+#content {
+    margin: 0 auto !important;
+    width: 100%;
+    max-width: 420px;
+
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    padding: var(--space-xl);
+
+    background: var(--color-surface);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+}
+
+#content h1 {
+    margin: 0;
+    font-size: var(--text-h1);
+    font-weight: 700;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    text-align: center;
+    text-wrap: balance;
+    overflow-wrap: anywhere;  
+    min-width: 0;
+}
+
+#takePhoto,
+#sendPhoto {
+    display: block;
+    width: 100%;
+    min-height: 48px;                 
+    padding: var(--space-sm) var(--space-lg);
+
+    font-family: inherit;
+    font-size: var(--text-base);
+    font-weight: 600;
+    line-height: 1.2;
+    white-space: nowrap;              
+
+    border: 1.5px solid transparent;
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    transition: background-color var(--dur-base) var(--ease-out),
+                color var(--dur-base) var(--ease-out),
+                transform var(--dur-fast) var(--ease-out),
+                box-shadow var(--dur-base) var(--ease-out);
+}
+
+
+#takePhoto:focus-visible,
+#sendPhoto:focus-visible {
+    outline: 3px solid var(--color-focus);
+    outline-offset: 2px;
+}
+
+#takePhoto {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+}
+#takePhoto:hover {
+    background: var(--color-accent-strong);
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-lift);
+}
+#takePhoto:active {
+    transform: translateY(1px);
+    box-shadow: none;
+}
+#takePhoto:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+    box-shadow: none;
+}
+
+#sendPhoto {
+    background: transparent;
+    color: var(--color-accent);
+    border-color: var(--color-accent);
+}
+#sendPhoto:hover {
+    background: var(--color-accent);
+    color: var(--color-on-accent);
+    transform: translateY(-1px);
+}
+#sendPhoto:active {
+    transform: translateY(1px);
+}
+#sendPhoto:disabled {
+    opacity: 0.55;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.center {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+}
+
+#photo {
+    display: none;
+    width: 100%;
+    max-width: 260px;
+    aspect-ratio: 1 / 1;
+    height: auto;
+    object-fit: cover;
+
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    animation: hm-reveal var(--dur-base) var(--ease-out);
+}
+
+@keyframes hm-reveal {
+    from { opacity: 0; transform: scale(0.97); }
+    to   { opacity: 1; transform: scale(1); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
+    }
+    #takePhoto:hover,
+    #sendPhoto:hover,
+    #takePhoto:active,
+    #sendPhoto:active {
+        transform: none;
+    }
+}
